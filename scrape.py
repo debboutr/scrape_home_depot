@@ -50,11 +50,10 @@ def get_state(user, password):
     
     try:
         with connection.cursor() as cursor:
-            # Read a single record
+
             sql = f"SELECT productUrl FROM products WHERE store = 'Home Depot'"
             cursor.execute(sql)
             db = cursor.fetchall()
-#            print(db)
             sql = "SELECT MAX(itemID) from prod_racp.products"
             cursor.execute(sql)
             (web_no,) = cursor.fetchone()
@@ -117,6 +116,7 @@ def gather_data(url, soup):
     hay = hay.replace('\'','') # remove ' chars cause it will fail on entering into DB
     desc = desc.replace('\'','')
     brand = brand.replace('\'','')
+    title = title.replace('\'','')
 
     return {'title': title,'crumbs':crumbs, 'short':short, 'desc':desc,
             'hay':hay, 'brand':brand, 'image':image, 'pdf_link':pdf_link,
@@ -150,8 +150,10 @@ if __name__ == '__main__':
     
     browser = webdriver.Chrome()
     store = "Home Depot"
+    
     # for testing....
-    urls = urls[:17]
+#    urls = urls[:17]
+    
     for i, url in enumerate(urls):
         web_no += 1
         print(f"gathering itemId: {web_no}...")
