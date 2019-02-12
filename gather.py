@@ -4,24 +4,15 @@ Created on Wed Oct 10 11:13:20 2018
 
 @author: Rdebbout
 """
-import re
+
 import time
-import random
 import requests
 import numpy as np
-import pandas as pd
 from ssl import SSLError
 from bs4 import BeautifulSoup
 from bs4.element import Tag
-from selenium import webdriver
 from requests import ConnectionError
-from datetime import datetime
-import pymysql.cursors
 
-
-
-def strip_clean(text):
-    return re.sub(r'\s+', ' ', text.replace('\n',''.strip()))
 
 headers = {'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
                           'AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -29,29 +20,6 @@ headers = {'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
 
 
 url = 'https://www.homedepot.com/c/site_map'
-url = ('https://www.homedepot.com/p/Rust-Oleum-Specialty-29-oz-Countertop-'
-       'Coating-Tint-Base-246068/202820906')
-
-response  = requests.get(url, headers=headers)
-response.status_code
-data = response.text
-soup = BeautifulSoup(data)
-soup.findAll('<a>')
-soup.find_all('a')
-mydivs = soup.findAll("div", {"class": "content"})
-a = mydivs[0]
-
-col = a.find_all('a')
-len(a.find_all('a'))
-link = col[0]
-type(link)
-type(a)
-type(soup)
-link
-soup.findParent
-type(link.findParent()) # find if wrapped w/ <b> tag??
-b = link.findParent()
-b.get
 
 count=0
 grouped_urls = []
@@ -183,21 +151,6 @@ for url in p:
         prods = git.find_all("a", {'data-pod-type': 'pr'})
         good_urls = good_urls + [prod['href'] for prod in prods]
         url = git.find('a', {'class':'hd-pagination__link','title':'Next'})
-       
-
-url
-'https://www.homedepot.com/b/Decor-Wall-Decor-Mirrors-Wall-Mirrors/'
-'Silver/N-5yc1vZ1z18fo4Z1z17yxz?Nao=336&Ns=None'
-for x in range(4):
-    git = 1
-    if x == 2: 
-        git = None    
-    while git:
-      
-        print(x)
-
-'https://www.homedepot.com/b/Plumbing-Plumbing-Accessories/N-5yc1vZbql8' in p
-
 
 
 
@@ -207,16 +160,15 @@ c2 = []
 for t in total:
     if t[:3] != '/p/':
         c2.append(t)
+          
         
-rand = random.sample(total, 10)       
-        
-https://www.homedepot.com/p/Westinghouse-Tulsa-52-in-Indoor-Oil-Brushed-Bronze-Ceiling-Fan-7200600/205972717
-https://www.homedepot.com/p/BEHR-MARQUEE-5-gal-MQ3-30-Petal-Tip-Semi-Gloss-Enamel-Interior-Paint-and-Primer-in-One-345005/207155990        
-https://www.homedepot.com/p/Inoxia-SpeedTiles-Cairo-Beige-11-75-in-x-11-6-in-x-5-mm-Stone-Self-Adhesive-Mosaic-Wall-Tile-11-36-sq-ft-case-IS0210E217001L/303473997
-https://www.homedepot.com/p/American-Standard-18293-0200-Renu-Brass-Tub-Shower-Stem-132433/205603862
-https://www.homedepot.com/p/Daltile-Forest-Hills-Crema-18-in-x-18-in-Porcelain-Floor-and-Wall-Tile-360-sq-ft-pallet-FH011818HDPL1P6/302180680
-https://www.homedepot.com/p/Pelican-Water-3-Stage-Whole-House-Water-Filtration-System-THD-PRL-3/207172271
-https://www.homedepot.com/p/Creative-Gallery-16-in-x-20-in-Do-Something-Today-Acrylic-Wall-Art-Print-QOT61504A1620X/306583244
+#https://www.homedepot.com/p/Westinghouse-Tulsa-52-in-Indoor-Oil-Brushed-Bronze-Ceiling-Fan-7200600/205972717
+#https://www.homedepot.com/p/BEHR-MARQUEE-5-gal-MQ3-30-Petal-Tip-Semi-Gloss-Enamel-Interior-Paint-and-Primer-in-One-345005/207155990        
+#https://www.homedepot.com/p/Inoxia-SpeedTiles-Cairo-Beige-11-75-in-x-11-6-in-x-5-mm-Stone-Self-Adhesive-Mosaic-Wall-Tile-11-36-sq-ft-case-IS0210E217001L/303473997
+#https://www.homedepot.com/p/American-Standard-18293-0200-Renu-Brass-Tub-Shower-Stem-132433/205603862
+#https://www.homedepot.com/p/Daltile-Forest-Hills-Crema-18-in-x-18-in-Porcelain-Floor-and-Wall-Tile-360-sq-ft-pallet-FH011818HDPL1P6/302180680
+#https://www.homedepot.com/p/Pelican-Water-3-Stage-Whole-House-Water-Filtration-System-THD-PRL-3/207172271
+#https://www.homedepot.com/p/Creative-Gallery-16-in-x-20-in-Do-Something-Today-Acrylic-Wall-Art-Print-QOT61504A1620X/306583244
 
 
 with open('open_home_depot_links_1.bat','w') as bat_file:
